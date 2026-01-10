@@ -9,9 +9,10 @@ import lombok.*;
 @AllArgsConstructor
 public class Admin {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="admin_id")
     private Long id;
 
-    @OneToOne
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name="user_id", nullable = false)
     private User user;
 

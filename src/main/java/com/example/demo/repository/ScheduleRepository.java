@@ -6,6 +6,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
-   List<Schedule> findByInstuctorId(Long instuctorId);
-   List<Schedule> findByInstructorIdAndDate(Long instructorId, LocalDate date);
+    List<Schedule> findByInstructorIdAndDateBetween(Long instructorId, LocalDate from, LocalDate to);
+    List<Schedule> findByStatus(String status);
 }

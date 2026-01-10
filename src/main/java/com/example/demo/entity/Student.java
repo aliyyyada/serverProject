@@ -9,16 +9,23 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Student {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="student_id")
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name="user_id", nullable=false)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id", nullable=false, unique=true)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="instructor_id")
     private Instructor instructor;
 
+    @Column(name="hours", nullable=false)
     private Integer hours = 0;
+
+    @Column(name="type_kpp", nullable = false)
+    private String typeKpp; //mkpp, akpp
+
 }

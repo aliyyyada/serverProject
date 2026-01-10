@@ -1,12 +1,15 @@
 package com.example.demo.dto;
 import com.example.demo.entity.enums.Role;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+
 @Data
-public class RegisterRequest {
+@AllArgsConstructor
+public class AuthResponse {
+    private String token;
+    private Long userId;
+    private Role role;
     private String firstName;
     private String lastName;
     private String patronymic;
-    private String phoneNumber;
-    private String password;
-    private Role role;
 }
