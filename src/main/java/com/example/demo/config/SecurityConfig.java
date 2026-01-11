@@ -25,6 +25,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/api/instructor/**").hasAuthority("ROLE_INSTRUCTOR")
 
+
                         .anyRequest().authenticated()
                 )
                 //.httpBasic(Customizer.withDefaults());
