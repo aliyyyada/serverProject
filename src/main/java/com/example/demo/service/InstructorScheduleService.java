@@ -5,6 +5,7 @@ import com.example.demo.dto.ScheduleSlotResponse;
 import com.example.demo.entity.Instructor;
 import com.example.demo.entity.Schedule;
 import com.example.demo.entity.User;
+import com.example.demo.entity.enums.BookingStatus;
 import com.example.demo.entity.enums.ScheduleStatus;
 import com.example.demo.repository.BookingRepository;
 import com.example.demo.repository.InstructorRepository;
@@ -74,12 +75,13 @@ public class InstructorScheduleService {
         }
     }
     private ScheduleSlotResponse toDto(Schedule s) {
-        var booking = bookingRepository.findBySchedule(s);
+        var bookingOpt = bookingRepository.findByScheduleAndStatus(s, BookingStatus.booked);
 
-        String student = booking
+        String student = bookingOpt
                 .map(b -> {
-                    User u = b.getStudent().getUser();
-                    return u.getLastName() + " " + u.getFirstName();
+                    var u = b.getStudent().getUser();
+                    return u.getLastName() + " " + u.getFirstName() +
+                            (u.getPatronymic() == null ? "" : " " + u.getPatronymic());
                 })
                 .orElse(null);
 
@@ -92,6 +94,7 @@ public class InstructorScheduleService {
                 s.getStatus().name()
         );
     }
+
 
 
 }
